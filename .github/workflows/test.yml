@@ -59,13 +59,4 @@ jobs:
       - name: Bring up kafka + zk
         run: docker-compose up -d
       - name: "Run tests"
-        run: |
-          go install github.com/jstemmer/go-junit-report
-          make testacc | go-junit-report 2>&1 > acc-test-results.xml
-      - name: Publish Test Report
-        uses: mikepenz/action-junit-report@v1
-        if: always()
-        with:
-          check_name: "Acceptance Tests"
-          report_paths: acc-test-results.xml
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+        run: make testacc
